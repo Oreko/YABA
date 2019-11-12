@@ -1,0 +1,176 @@
+body, div, h1, h2, h3, h4, h5, h6, p, ul, li, dd, dt 
+{
+    font-family: verdana,sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+body 
+{
+    font-size: 80%;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+}
+
+input
+{
+    padding: 0 .3em;
+}
+
+a:link
+{
+    color: #006ffa;
+    text-decoration: none;
+}
+
+a:visited 
+{
+    color: #006ffa;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color:#33cfff;
+    text-decoration:none
+}
+
+a:active
+{
+    color:#006ffa;
+    text-decoration:none
+}
+
+h1, h2, h3, h4 
+{
+    font-family: Tahoma;
+}
+
+h5 
+{
+    font-size: 1.2em;
+}
+
+.thumb 
+{
+    max-width: 150px;
+    max-height: 150px;
+}
+
+ul#subnavbar
+{
+    padding: 5px 20px 5px 15px;
+    background: #006ffa;
+    margin: 0 0 1em;
+    margin-bottom: 1px
+}
+
+ul#subnavbar li {
+    padding: 0 5px;
+    background: #006ffa;
+}
+
+ul#subnavbar li a {
+    color: #fff;
+}
+
+ul.flat_list 
+{
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+ul.flat_list li 
+{
+    display: inline;
+    list-style-type: none;
+    font-weight: 700;
+    padding: 0;
+    margin: 0 1em 0 0;
+}
+
+#post_table
+{
+    display: block;
+}
+  
+#post_table td {
+    display: inline-block;
+}
+
+#site_title
+{
+    padding:10px 20px 0px;
+}
+
+#sidebar 
+{
+    float: left;
+    margin-right: 1em;
+    margin-left: 1em;
+    width: 20%;
+    overflow: visible;
+}
+
+#content 
+{
+    float: right;
+    margin: 0;
+    width: 77%;
+    background: #fff;
+}
+
+#taglist 
+{
+    margin-bottom: 1em;
+}
+
+#tag
+{
+    list-style-type: none;
+    margin: 0;
+}
+
+#site_search
+{
+    width: 154px
+}
+
+#search_button
+{
+    margin-top: 3px;
+    background: #fff;
+    border: 1px solid #dadada;
+    width: 154px;
+}
+
+#paginator 
+{
+    display: block;
+    padding: 2em 0 1em;
+    font-size: 1em;
+    text-align: center;
+    font-weight: 700;
+    clear: both;
+}
+
+#static-index 
+{
+    text-align: center;
+}
+
+#info
+{
+    font-size: 80%;
+    margin-bottom: 2em;
+}
+
+#solid_line
+{
+    width: 100%;
+    border-top: 1px solid #7aa5d6;
+    text-align: center;
+}

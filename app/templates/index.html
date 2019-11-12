@@ -1,6 +1,28 @@
 <!doctype html>
 <html>
-
-    
-
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    </head>
+    <body>
+        <div id="static-index">
+            <div>
+                <a href="{{ url_for('posts.serve_posts') }}">
+                        <img src="{{ url_for('static', filename='images/main.gif')}}" style="width: 100%; max-width: 700px;" alt="YABA"/>
+                    </a>
+                    <form action="{{ url_for('posts.serve_posts') }}" method="get">
+                        <input type="search" size="45" name="tags">
+                        <br>
+                        <input type="submit" value="Search" />
+                    </form>
+            </div>
+            <div id="info">
+                <p>Serving {{post_number[0]}} posts</p>
+                <br>
+                {% for image in post_number[1] %}
+                <img src="{{image}}">
+                {% endfor %}
+            </div>
+        </div>
+        <div id="solid_line"></div>
+    </body>
 </html>

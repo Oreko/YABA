@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    </head>
+    <body>
+        <header>
+            <h2 id="site_title">
+                <a href="{{ url_for('index.index') }}">{{site_name}}</a>
+            </h2>
+            <ul class="flat_list" id="subnavbar">
+                <li>
+                    <a href="{{ url_for('posts.serve_posts') }}">List</a>
+                </li>
+            </ul>
+        </header>
+        {% block content %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div id="post_list">
+    <div id="sidebar">
+        <div>
+            <h5>Search</h5>
+            <form action="{{ url_for('posts.serve_posts') }}" method="get">
+                <input type="search" id="site_search" name="tags" value="{{current_tags}}"
+                aria-label="Search through site content">
+                <br>
+                <input id="search_button" type="submit" value="Search" />
+            </form>
+        </div>
+        <div>
+            <h5>Tags</h5>
+            {% if tags%}
+            <ul id="tag_list">
+                {% for tag in tags %}
+                <li id="tag">
+                    <a href="{{ url_for('posts.serve_posts') }}?tags={{tag}}">{{tag}}</a>
+                </li>
+                {% endfor %}
+            </ul >
+            {% else %}
+            No tags found!
+            {% endif %}
+        </div>
+    </div>
+    <div id="content">
+        {% if posts %}
+        <table id="post_table">
+            {% for post in posts %}
+            <tr>
+                <a href="{{ post[1] }}">
+                    <img src="{{ post[0] }}", class="thumb">
+                </a>
+            </tr>
+            {% endfor %}
+        </table>
+        <div id="paginator">
+            <a href="{{ prev_url }}">previous </a>
+            <b> {{ page }} </b>
+            <a href="{{ next_url }}"> next</a>
+        </div>
+        {% else %}
+        Nobody here but us chickens!
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
