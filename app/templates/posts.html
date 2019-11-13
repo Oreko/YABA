@@ -6,7 +6,7 @@
         <div>
             <h5>Search</h5>
             <form action="{{ url_for('posts.serve_posts') }}" method="get">
-                <input type="search" id="site_search" name="tags" value="{{current_tags}}"
+                <input type="search" id="site_search" name="tags" value="{{ current_tags }}"
                 aria-label="Search through site content">
                 <br>
                 <input id="search_button" type="submit" value="Search" />
@@ -18,7 +18,9 @@
             <ul id="tag_list">
                 {% for tag in tags %}
                 <li id="tag">
-                    <a href="{{ url_for('posts.serve_posts') }}?tags={{tag}}">{{tag}}</a>
+                    <a href="{{ url_for('posts.serve_posts') }}?tags={{ tag }}+{{ tag_args }}">+</a>
+                    <a href="{{ url_for('posts.serve_posts') }}?tags=-{{ tag }}+{{ tag_args }}">-</a>
+                    <a href="{{ url_for('posts.serve_posts') }}?tags={{ tag }}">{{ tag }}</a>
                 </li>
                 {% endfor %}
             </ul >

@@ -48,6 +48,11 @@ h1, h2, h3, h4
     font-family: Tahoma;
 }
 
+h2 
+{
+    font-size: 1.8em;
+}
+
 h5 
 {
     font-size: 1.2em;
@@ -172,5 +177,16 @@ ul.flat_list li
 {
     width: 100%;
     border-top: 1px solid #7aa5d6;
-    text-align: center;
+}
+
+#error_list
+{
+    clear: both;
+    background-color: #FFBABA;
+}
+
+#error_list li
+{
+    background-color: #FFBABA;
+    color: #D8000C;
 }
