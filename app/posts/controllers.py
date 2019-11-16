@@ -16,6 +16,7 @@ def download_posts(tags, page):
             postList = client.post_list(tags=tags, limit=50, page=page) # change the limit to be user defined from config
         except PybooruHTTPError as err:
             errors.append("{} error: {}".format(client.site_url, err))
+            continue
         
         preview = ""
         full = "file_url"
@@ -30,13 +31,18 @@ def download_posts(tags, page):
             tag_string = post['tags']
             list_of_tags.extend(tag_string.split(" "))
             posts.append((post[preview], post[full]))
+
         for tag in list_of_tags:
             if tag in tag_count:
                 tag_count[tag] += 1
             else:
                 tag_count[tag] = 1
-    ordered_set_of_tags = sorted(tag_count, key=lambda x: x[1], reverse=True)
-    ordered_set_of_tags = sorted(ordered_set_of_tags[:50])
+    
+    # Sort to have the highest count tags for a page first, then grab the top 50 tags
+    ordered_set_of_tags = sorted(tag_count.items(), key=lambda x: x[1], reverse=True)[:50]
+
+    # Return the list sorted alphabetically by tag name
+    ordered_set_of_tags = [tag for tag, _ in sorted(ordered_set_of_tags)]
     return (ordered_set_of_tags, posts, errors)
 
 @bp.route('')
