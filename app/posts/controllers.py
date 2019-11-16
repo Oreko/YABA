@@ -3,32 +3,40 @@ from pybooru import Danbooru, Moebooru, PybooruHTTPError
 
 from app.posts import bp
 
-
-client = Moebooru('konachan') # change this to be a list of clients from user config
-danbooru = False # do we want to serve these guys?
+clients = [(Moebooru('konachan'), False), (Moebooru('yandere'), False)]
+# (Danbooru(site_url='http://gelbooru.com'), True)
 
 def download_posts(tags, page):
-    postList = []
-    errors = []
-    try:
-        postList = client.post_list(tags=tags, limit=50, page=page) # change the limit to be user defined from config
-    except PybooruHTTPError as err:
-        errors.append("Konachan error: {}".format(err))
     posts = []
-    preview = ""
-    full = "file_url"
-    list_of_tags = []
-    
-    if (danbooru == True):
-        preview = "preview_file_url"
-    else:
-        preview = "preview_url"
-    
-    for post in postList:
-        tag_string = post['tags']
-        list_of_tags.extend(tag_string.split(" "))
-        posts.append((post[preview], post[full]))
-    ordered_set_of_tags = sorted(list(set(list_of_tags)))
+    errors = []
+    tag_count = {}
+    for client, danbooru in clients:
+        postList = []
+        try:
+            postList = client.post_list(tags=tags, limit=50, page=page) # change the limit to be user defined from config
+        except PybooruHTTPError as err:
+            errors.append("{} error: {}".format(client.site_url, err))
+        
+        preview = ""
+        full = "file_url"
+        list_of_tags = []
+        
+        if (danbooru == True):
+            preview = "preview_file_url"
+        else:
+            preview = "preview_url"
+        
+        for post in postList:
+            tag_string = post['tags']
+            list_of_tags.extend(tag_string.split(" "))
+            posts.append((post[preview], post[full]))
+        for tag in list_of_tags:
+            if tag in tag_count:
+                tag_count[tag] += 1
+            else:
+                tag_count[tag] = 1
+    ordered_set_of_tags = sorted(tag_count, key=lambda x: x[1], reverse=True)
+    ordered_set_of_tags = sorted(ordered_set_of_tags[:50])
     return (ordered_set_of_tags, posts, errors)
 
 @bp.route('')
