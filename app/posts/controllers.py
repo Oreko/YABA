@@ -49,5 +49,5 @@ def serve_posts():
     next_url = url_for('posts.serve_posts', tags = tags, page = page + 1)
     prev_url = url_for('posts.serve_posts', tags = tags, page = page - 1)
 
-    return render_template('posts.html', site_name="YABA", posts=info[1], tags=info[0][:50], page=page,
+    return render_template('posts.html', site_name="YABA", posts=info[1], tags=info[0], page=page,
         current_tags=tags, tag_args=tag_args, next_url=next_url, prev_url=prev_url, errors=info[2])
