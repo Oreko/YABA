@@ -1,0 +1,1 @@
+from booru_extension.altbooru import Gelbooru, Safebooru

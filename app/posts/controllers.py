@@ -1,36 +1,39 @@
 from flask import request, render_template, send_from_directory, url_for
 from pybooru import Danbooru, Moebooru, PybooruHTTPError
+from booru_extension import Safebooru, Gelbooru
 
 from app.posts import bp
 
-clients = [(Moebooru('konachan'), False), (Moebooru('yandere'), False)]
-# (Danbooru(site_url='http://gelbooru.com'), True)
+# Commas on the left for easy commenting
+clients = [(Moebooru('konachan'), False)
+           , (Moebooru('yandere'), False)
+           , (Safebooru(), True)
+           #,(Gelbooru(), True) # Currently, Gelbooru commonly 404s on its own images
+           ]
+
 
 def download_posts(tags, page):
     posts = []
     errors = []
     tag_count = {}
-    for client, danbooru in clients:
+    for client, altbooru in clients:
         postList = []
         try:
             postList = client.post_list(tags=tags, limit=50, page=page) # change the limit to be user defined from config
         except PybooruHTTPError as err:
-            errors.append("{} error: {}".format(client.site_url, err))
+            errors.append("{0} error: {1}".format(client.site_url, err))
             continue
         
-        preview = ""
-        full = "file_url"
         list_of_tags = []
-        
-        if (danbooru == True):
-            preview = "preview_file_url"
-        else:
-            preview = "preview_url"
         
         for post in postList:
             tag_string = post['tags']
             list_of_tags.extend(tag_string.split(" "))
-            posts.append((post[preview], post[full]))
+            if(altbooru == True):
+                image_url = client.get_image_url(post)
+                posts.append((image_url, image_url))
+            else:
+                posts.append((post["preview_url"], post["file_url"]))
 
         for tag in list_of_tags:
             if tag in tag_count:
